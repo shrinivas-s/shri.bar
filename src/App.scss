@@ -1,0 +1,270 @@
+.App {
+  width: 100%;
+  height: 100%;
+}
+
+.appContainer {
+  height: 100vh;
+  overflow: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+.home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  scroll-snap-align: center;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+.themeSwitch {
+  position: absolute;
+  font-size: 1.5rem;
+  color: white;
+  top: 0.8rem;
+  right: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.bgname {
+  color: #0076b7;
+  /* margin: 1rem; */
+  font-size: 10rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-top: 8.2rem;
+  z-index: 100;
+}
+
+.bgname.left {
+  transform: translateX(-200%) scale(0);
+  animation: slideFromLeft 0.3s cubic-bezier(0.49, 0.4, 0.66, 1.15) 0.5s
+    forwards;
+  z-index: 1;
+}
+.bgname.right {
+  transform: translateX(200%) scale(0);
+  animation: slideFromRight 0.3s cubic-bezier(0.49, 0.4, 0.66, 1.15) 1s forwards;
+  z-index: 1;
+}
+
+.card {
+  width: var(--card-width);
+  height: var(--card-height);
+  min-width: 80px;
+  border-radius: 10px;
+  transform: perspective(1000px) scale3d(1, 1, 1);
+  transition: all ease-out 0.15s;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  background-color: transparent;
+  background-image: url("./linkedin.png");
+  background-size: cover;
+  background-position-y: -15px;
+  background-repeat: no-repeat;
+  animation: zoomOut 0.8s ease, pushLeft 0.1s ease 0.7s forwards,
+    pushRight 0.1s ease 1.18s forwards;
+  z-index: 100;
+}
+
+.card.ready {
+  animation: none;
+}
+
+.card .image {
+  position: absolute;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  top: 22.5px;
+  left: 40.5px;
+  object-fit: cover;
+  overflow: hidden;
+  transform: scale(0);
+  transition: all ease 0.2s;
+  box-sizing: border-box;
+  padding: 1px;
+}
+
+.card.zoom:hover .image {
+  transform: scale(1);
+}
+
+.card .content {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
+  opacity: 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transition: all ease-out 0.1s;
+}
+
+.card.zoom:hover .content {
+  opacity: 1;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 38px;
+}
+
+.name {
+  font-family: "Fredoka One", cursive;
+  font-size: 1.1rem;
+  color: #1b3147;
+  margin-left: 4rem;
+  opacity: 0;
+  transition: all ease-out 0.3s;
+}
+
+.card:hover .name {
+  opacity: 1;
+  transition: all ease-out 0.3s;
+}
+
+@media only screen and (max-width: 600px) {
+  .image,
+  .name {
+    display: none !important;
+  }
+}
+
+.card.zoom {
+  transform: perspective(200px) scale3d(1.1, 1.1, 1.1);
+}
+
+.lights {
+  display: flex;
+  justify-content: space-between;
+
+  position: absolute;
+}
+.lights.top {
+  width: 100vw;
+  top: -2.2rem;
+}
+.lights.left {
+  height: 100vh;
+  flex-direction: column;
+  left: -1.2rem;
+}
+.lights.right {
+  height: 100vh;
+  float: right;
+  flex-direction: column;
+  right: -2.2rem;
+}
+.lights.bottom {
+  width: 100vw;
+  bottom: -2.5rem;
+}
+.light {
+  width: 1rem;
+  height: 2rem;
+  box-shadow: -1px 0px 20px 10px gold, -1px 0px 40px 15px gold,
+    -1px 0px 70px 20px gold;
+  top: -100%;
+  opacity: 0;
+  transform: scaleY(0);
+  transition: all ease 0.3s;
+  @for $i from 1 through 50 {
+    &:nth-child(#{$i}) {
+      transition-delay: 100ms * $i;
+    }
+  }
+}
+
+.show .light {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+.skillsContainer {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  scroll-snap-align: center;
+  flex-wrap: wrap;
+  background: linear-gradient(180deg, #051e30, #070d32fa);
+
+  /* background-color: white; */
+}
+.skill {
+  font-family: "Alfa Slab One", cursive;
+  font-size: 7rem;
+  color: #ffffff;
+  width: 5rem;
+  flex: 1;
+  text-align: center;
+}
+.pulse {
+  animation: pulse 1s ease-in 0s 5 alternate;
+}
+
+@keyframes slideFromLeft {
+  0% {
+    transform: translateX(-200%) scale(1);
+  }
+  90% {
+    transform: translateX(20%) scale(1);
+  }
+  100% {
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes pushLeft {
+  0% {
+    transform: perspective(1000px) scale3d(1, 1, 1) translateX(0);
+  }
+  100% {
+    transform: perspective(1000px) scale3d(1, 1, 1) translateX(50%);
+  }
+}
+
+@keyframes pushRight {
+  0% {
+    transform: perspective(1000px) scale3d(1, 1, 1) translateX(50%);
+  }
+  100% {
+    transform: perspective(1000px) scale3d(1, 1, 1) translateX(0);
+  }
+}
+
+@keyframes slideFromRight {
+  0% {
+    transform: translateX(200%) scale(1);
+  }
+
+  100% {
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes zoomOut {
+  from {
+    opacity: 0;
+    transform: perspective(600px) scale(5) rotateX(150deg);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(600px) scale(1) rotateX(0deg);
+  }
+}
